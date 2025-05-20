@@ -74,8 +74,6 @@ const CustomCursor = () => {
             // More visible when clicked
             if (clicked) {
               trail.style.opacity = (1 - (index / (numTrails * 1.5))).toString();
-              trail.style.width = '3px';
-              trail.style.height = '3px';
             }
           }
         }, index * 50); // Staggered delay
@@ -108,18 +106,8 @@ const CustomCursor = () => {
     return null;
   }
 
-  return (
-    <div 
-      className={`cursor-dot ${hidden ? 'opacity-0' : 'opacity-100'} ${
-        clicked ? 'scale-50' : ''
-      } ${linkHovered ? 'cursor-expand' : ''}`}
-      style={{
-        left: `${position.x}px`,
-        top: `${position.y}px`,
-        transform: `translate(-50%, -50%) ${clicked ? 'scale(0.5)' : ''}`,
-      }}
-    />
-  );
+  // Return null as we don't need the cursor dot anymore, only the trails
+  return null;
 };
 
 export default CustomCursor;

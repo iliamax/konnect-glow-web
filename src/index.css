@@ -70,7 +70,7 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: none;
+    cursor: auto; /* Reset to normal cursor */
   }
 
   body {
@@ -85,18 +85,7 @@
     @apply after:absolute after:inset-0 after:bg-glass after:backdrop-blur-md after:rounded-xl after:-z-10;
   }
   
-  .cursor-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #FF6F00;
-    position: fixed;
-    pointer-events: none;
-    z-index: 999;
-    transform: translate(-50%, -50%);
-    transition: transform 0.1s ease;
-  }
-
+  /* Remove the cursor-dot styling but keep the trail styling */
   .cursor-trail {
     width: 4px;
     height: 4px;
@@ -118,12 +107,9 @@
   .trail-6 { background: rgba(0, 87, 160, 0.4); }
   .trail-7 { background: rgba(0, 87, 160, 0.3); }
 
-  .cursor-expand {
-    transform: scale(2);
-  }
-
-  .hover-grow:hover .cursor-dot {
-    transform: scale(2);
+  /* Adjust hover styles for normal cursor */
+  button, a, .hover-grow {
+    cursor: pointer;
   }
 
   .bg-particles {
@@ -163,7 +149,7 @@
       cursor: auto !important;
     }
     
-    .cursor-dot, .cursor-trail {
+    .cursor-trail {
       display: none !important;
     }
   }
