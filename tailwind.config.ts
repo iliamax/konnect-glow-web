@@ -131,6 +131,27 @@ export default {
           '0%': { transform: 'translate(200px, 150px)' },
           '100%': { transform: 'translate(100px, 240px)' }
         },
+        'pop-in-out': {
+          '0%': { 
+            opacity: '0',
+            transform: 'scale(0)'
+          },
+          '20%': { 
+            opacity: '1',
+            transform: 'scale(1.1)'
+          },
+          '30%': { 
+            transform: 'scale(1)'
+          },
+          '80%': { 
+            opacity: '1',
+            transform: 'scale(1)'
+          },
+          '100%': { 
+            opacity: '0',
+            transform: 'scale(0)'
+          }
+        }
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
@@ -143,6 +164,7 @@ export default {
         'movePacket1': 'movePacket1 2s infinite',
         'movePacket2': 'movePacket2 3s infinite',
         'movePacket3': 'movePacket3 2.5s infinite',
+        'pop-in-out': 'pop-in-out 3s forwards',
 			},
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

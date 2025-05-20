@@ -1,10 +1,108 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, Wifi, WifiOff, Router, Globe, Link } from 'lucide-react';
+import { ArrowDown, Wifi, WifiOff, Router, Globe, Link, Users, WifiHigh, ZapIcon, ActivityIcon } from 'lucide-react';
 import { Link as RouterLink } from 'react-router-dom';
 
+// User count data
+interface UserCount {
+  id: number;
+  count: number;
+  type: 'users' | 'hotspot' | 'activity';
+  position: { top: string; left: string };
+}
+
+// Slogan animation states
+type SloganMode = 'default' | 'glow' | 'highlight' | 'scale';
+
 const HeroSection = () => {
+  // State for popping user counts
+  const [userCounts, setUserCounts] = useState<UserCount[]>([]);
+  const [sloganMode, setSloganMode] = useState<SloganMode>('default');
+  
+  // Generate random number within a range
+  const getRandomNumber = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+  
+  // Generate a new user count bubble
+  const generateUserCount = () => {
+    const types: ('users' | 'hotspot' | 'activity')[] = ['users', 'hotspot', 'activity'];
+    const count = getRandomNumber(10, 150);
+    const id = Date.now();
+    const type = types[Math.floor(Math.random() * types.length)];
+    const position = {
+      top: `${getRandomNumber(10, 90)}%`,
+      left: `${getRandomNumber(10, 90)}%`,
+    };
+    
+    return { id, count, type, position };
+  };
+  
+  // Add new count bubble and remove after animation
+  const addAndRemoveUserCount = () => {
+    const newUserCount = generateUserCount();
+    setUserCounts((prev) => [...prev, newUserCount]);
+    
+    // Remove after animation completes
+    setTimeout(() => {
+      setUserCounts((prev) => prev.filter((count) => count.id !== newUserCount.id));
+    }, 3000);
+  };
+  
+  // Cycle through slogan animation modes
+  const cycleSloganMode = () => {
+    const modes: SloganMode[] = ['default', 'glow', 'highlight', 'scale'];
+    setSloganMode((prev) => {
+      const currentIndex = modes.indexOf(prev);
+      return modes[(currentIndex + 1) % modes.length];
+    });
+  };
+  
+  // Set up periodic user count addition and slogan animation
+  useEffect(() => {
+    const countInterval = setInterval(addAndRemoveUserCount, 1200);
+    const sloganInterval = setInterval(cycleSloganMode, 3000);
+    
+    // Add initial counts
+    for (let i = 0; i < 4; i++) {
+      addAndRemoveUserCount();
+    }
+    
+    return () => {
+      clearInterval(countInterval);
+      clearInterval(sloganInterval);
+    };
+  }, []);
+  
+  // Get icon based on user count type
+  const getCountIcon = (type: string) => {
+    switch (type) {
+      case 'users':
+        return <Users className="w-4 h-4 text-white" />;
+      case 'hotspot':
+        return <WifiHigh className="w-4 h-4 text-white" />;
+      case 'activity':
+        return <ActivityIcon className="w-4 h-4 text-white" />;
+      default:
+        return <ZapIcon className="w-4 h-4 text-white" />;
+    }
+  };
+  
+  // Get slogan styling based on current mode
+  const getSloganClasses = () => {
+    switch (sloganMode) {
+      case 'glow':
+        return 'text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white animate-glow transition-all duration-500';
+      case 'highlight':
+        return 'text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-planetOrange to-planetBlue transition-all duration-500 animate-pulse-grow';
+      case 'scale':
+        return 'text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white scale-105 transition-all duration-500';
+      default:
+        return 'text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-planetOrange to-planetBlue transition-all duration-500';
+    }
+  };
+  
   return (
     <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Network-themed background elements */}
@@ -63,11 +161,29 @@ const HeroSection = () => {
         </div>
       </div>
 
+      {/* User count bubbles */}
+      {userCounts.map((count) => (
+        <div
+          key={count.id}
+          className="absolute z-20 flex items-center gap-1 bg-gradient-to-r from-planetOrange to-planetBlue p-2 rounded-full text-white text-xs animate-pop-in-out"
+          style={{
+            top: count.position.top,
+            left: count.position.left,
+            animation: 'pop-in-out 3s forwards',
+            opacity: 0,
+            transform: 'scale(0)',
+          }}
+        >
+          {getCountIcon(count.type)}
+          <span className="font-bold">{count.count}+</span>
+        </div>
+      ))}
+
       {/* Content */}
       <div className="container mx-auto px-6 relative z-10 pt-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-planetOrange to-planetBlue">
+            <h1 className={getSloganClasses()}>
               Connect Better. <br /> Live Better.
             </h1>
             <p className="text-lg md:text-xl mb-8 max-w-lg mx-auto lg:mx-0">

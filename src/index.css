@@ -129,6 +129,29 @@
     animation: float 20s infinite linear;
   }
 
+  /* New animation for pop-in-out user counts */
+  @keyframes pop-in-out {
+    0% {
+      opacity: 0;
+      transform: scale(0);
+    }
+    20% {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    30% {
+      transform: scale(1);
+    }
+    80% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(0);
+    }
+  }
+
   @keyframes movePacket1 {
     0% { transform: translate(200px, 150px); }
     100% { transform: translate(80px, 45px); }
