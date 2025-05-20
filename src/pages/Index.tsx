@@ -7,7 +7,7 @@ import HeroSection from '@/components/HeroSection';
 import PackageShowcase from '@/components/PackageShowcase';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { Shield, Speed, Support } from 'lucide-react';
+import { Shield, Zap, Headphones } from 'lucide-react';
 
 const Index = () => {
   return (
@@ -39,7 +39,7 @@ const Index = () => {
             {/* Feature 1 */}
             <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-6 hover:shadow-lg transition-shadow hover-grow">
               <div className="bg-planetOrange/10 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-4 mx-auto">
-                <Speed className="h-7 w-7 text-planetOrange" />
+                <Zap className="h-7 w-7 text-planetOrange" />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-center">Fast Connections</h3>
               <p className="text-center text-muted-foreground">
@@ -50,7 +50,7 @@ const Index = () => {
             {/* Feature 2 */}
             <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-6 hover:shadow-lg transition-shadow hover-grow">
               <div className="bg-planetBlue/10 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-4 mx-auto">
-                <Support className="h-7 w-7 text-planetBlue" />
+                <Headphones className="h-7 w-7 text-planetBlue" />
               </div>
               <h3 className="text-xl font-semibold mb-3 text-center">24/7 Support</h3>
               <p className="text-center text-muted-foreground">

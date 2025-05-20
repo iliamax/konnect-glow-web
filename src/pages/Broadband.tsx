@@ -1,11 +1,10 @@
-
 import React from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Particles from '@/components/Particles';
 import CustomCursor from '@/components/CustomCursor';
 import { Button } from '@/components/ui/button';
-import { Shield, Support, Speed } from 'lucide-react';
+import { Shield, Headphones, Zap } from 'lucide-react';
 import PackageCard from '@/components/PackageCard';
 
 const broadbandPackages = [
@@ -75,7 +74,7 @@ const Broadband = () => {
               <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-6 shadow-lg hover-grow">
                 <div className="flex items-center mb-4">
                   <div className="bg-planetOrange/10 p-2 rounded-full">
-                    <Speed className="h-5 w-5 text-planetOrange" />
+                    <Zap className="h-5 w-5 text-planetOrange" />
                   </div>
                   <h3 className="ml-3 font-semibold">High Speed</h3>
                 </div>
@@ -99,7 +98,7 @@ const Broadband = () => {
               <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-6 shadow-lg hover-grow">
                 <div className="flex items-center mb-4">
                   <div className="bg-green-500/10 p-2 rounded-full">
-                    <Support className="h-5 w-5 text-green-500" />
+                    <Headphones className="h-5 w-5 text-green-500" />
                   </div>
                   <h3 className="ml-3 font-semibold">24/7 Support</h3>
                 </div>

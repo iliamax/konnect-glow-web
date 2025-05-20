@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Particles from '@/components/Particles';
 import CustomCursor from '@/components/CustomCursor';
-import { Shield, Speed, Support } from 'lucide-react';
+import { Zap, Shield, Headphones } from 'lucide-react';
 
 const About = () => {
   return (
@@ -69,7 +69,7 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-6 shadow-lg text-center hover-grow">
                 <div className="bg-planetOrange/10 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-4 mx-auto">
-                  <Speed className="h-7 w-7 text-planetOrange" />
+                  <Zap className="h-7 w-7 text-planetOrange" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Innovation</h3>
                 <p className="text-muted-foreground">
@@ -79,7 +79,7 @@ const About = () => {
               
               <div className="backdrop-blur-md bg-white/5 border border-white/20 rounded-xl p-6 shadow-lg text-center hover-grow">
                 <div className="bg-planetBlue/10 p-3 rounded-full w-14 h-14 flex items-center justify-center mb-4 mx-auto">
-                  <Support className="h-7 w-7 text-planetBlue" />
+                  <Headphones className="h-7 w-7 text-planetBlue" />
                 </div>
                 <h3 className="text-xl font-semibold mb-3">Customer Focus</h3>
                 <p className="text-muted-foreground">

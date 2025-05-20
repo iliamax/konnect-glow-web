@@ -1,7 +1,6 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Support } from 'lucide-react';
+import { Headphones } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -90,7 +89,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Support className="mr-2" size={16} />
+                <Headphones className="mr-2" size={16} />
                 <span>WhatsApp Support</span>
               </a>
             </div>
