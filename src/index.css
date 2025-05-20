@@ -86,10 +86,10 @@
   }
   
   .cursor-dot {
-    width: 10px;
-    height: 10px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
-    background: linear-gradient(to right, #FF6F00, #0057A0);
+    background: #FF6F00;
     position: fixed;
     pointer-events: none;
     z-index: 999;
@@ -97,22 +97,33 @@
     transition: transform 0.1s ease;
   }
 
-  .cursor-outline {
-    width: 30px;
-    height: 30px;
-    border: 2px solid rgba(255, 111, 0, 0.5);
+  .cursor-trail {
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 999;
+    z-index: 998;
+    background: linear-gradient(to right, #FF6F00, #0057A0);
+    box-shadow: 0 0 4px rgba(255, 111, 0, 0.8);
     transform: translate(-50%, -50%);
-    transition: transform 0.15s ease, width 0.2s ease, height 0.2s ease;
   }
 
-  .hover-grow:hover .cursor-outline {
-    width: 50px;
-    height: 50px;
-    background: rgba(255, 111, 0, 0.1);
+  .trail-0 { background: #FF6F00; }
+  .trail-1 { background: rgba(255, 111, 0, 0.9); }
+  .trail-2 { background: rgba(255, 111, 0, 0.8); }
+  .trail-3 { background: rgba(255, 111, 0, 0.7); }
+  .trail-4 { background: rgba(0, 87, 160, 0.6); }
+  .trail-5 { background: rgba(0, 87, 160, 0.5); }
+  .trail-6 { background: rgba(0, 87, 160, 0.4); }
+  .trail-7 { background: rgba(0, 87, 160, 0.3); }
+
+  .cursor-expand {
+    transform: scale(2);
+  }
+
+  .hover-grow:hover .cursor-dot {
+    transform: scale(2);
   }
 
   .bg-particles {
@@ -132,14 +143,28 @@
     animation: float 20s infinite linear;
   }
 
+  @keyframes movePacket1 {
+    0% { transform: translate(200px, 150px); }
+    100% { transform: translate(80px, 45px); }
+  }
+
+  @keyframes movePacket2 {
+    0% { transform: translate(200px, 150px); }
+    100% { transform: translate(320px, 75px); }
+  }
+
+  @keyframes movePacket3 {
+    0% { transform: translate(200px, 150px); }
+    100% { transform: translate(100px, 240px); }
+  }
+
   @media (max-width: 768px) {
     * {
       cursor: auto !important;
     }
     
-    .cursor-dot, .cursor-outline {
+    .cursor-dot, .cursor-trail {
       display: none !important;
     }
   }
 }
-

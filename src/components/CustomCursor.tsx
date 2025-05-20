@@ -1,13 +1,22 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const CustomCursor = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [hidden, setHidden] = useState(true);
   const [clicked, setClicked] = useState(false);
   const [linkHovered, setLinkHovered] = useState(false);
+  const trailsRef = useRef<HTMLDivElement[]>([]);
+  const numTrails = 8; // Number of trailing elements
 
   useEffect(() => {
+    // Initialize trailing elements
+    trailsRef.current = Array.from({ length: numTrails }).map(() => document.createElement('div'));
+    trailsRef.current.forEach((trail, index) => {
+      trail.className = `cursor-trail trail-${index}`;
+      document.body.appendChild(trail);
+    });
+
     // Only show custom cursor after mouse moves (prevents initial flash at 0,0)
     const addEventListeners = () => {
       document.addEventListener('mousemove', onMouseMove);
@@ -36,11 +45,42 @@ const CustomCursor = () => {
         el.removeEventListener('mouseenter', onLinkMouseEnter);
         el.removeEventListener('mouseleave', onLinkMouseLeave);
       });
+
+      // Clean up trail elements
+      trailsRef.current.forEach(trail => {
+        if (document.body.contains(trail)) {
+          document.body.removeChild(trail);
+        }
+      });
     };
 
-    // Mouse move handler
+    // Mouse move handler with trail effect
     const onMouseMove = (e: MouseEvent) => {
-      setPosition({ x: e.clientX, y: e.clientY });
+      const newPosition = { x: e.clientX, y: e.clientY };
+      setPosition(newPosition);
+
+      // Update trail positions with delay
+      trailsRef.current.forEach((trail, index) => {
+        setTimeout(() => {
+          if (trail) {
+            trail.style.left = `${newPosition.x}px`;
+            trail.style.top = `${newPosition.y}px`;
+            trail.style.opacity = (1 - (index / numTrails)).toString();
+            
+            // Scale down the trails as they go further back
+            const scale = 1 - (index * 0.05);
+            trail.style.transform = `translate(-50%, -50%) scale(${scale})`;
+            
+            // More visible when clicked
+            if (clicked) {
+              trail.style.opacity = (1 - (index / (numTrails * 1.5))).toString();
+              trail.style.width = '3px';
+              trail.style.height = '3px';
+            }
+          }
+        }, index * 50); // Staggered delay
+      });
+
       if (hidden) setHidden(false);
     };
     
@@ -61,7 +101,7 @@ const CustomCursor = () => {
 
     // Remove event listeners when the component unmounts
     return () => removeEventListeners();
-  }, [hidden, linkHovered]);
+  }, [hidden, linkHovered, clicked, numTrails]);
 
   // Hide on mobile
   if (typeof window !== 'undefined' && window.innerWidth <= 768) {
@@ -69,30 +109,16 @@ const CustomCursor = () => {
   }
 
   return (
-    <>
-      <div
-        className={`cursor-dot ${hidden ? 'opacity-0' : 'opacity-100'} ${
-          clicked ? 'scale-50' : ''
-        }`}
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: `translate(-50%, -50%) ${clicked ? 'scale(0.5)' : ''}`,
-        }}
-      />
-      <div
-        className={`cursor-outline ${hidden ? 'opacity-0' : 'opacity-100'} ${
-          linkHovered ? 'scale-150 bg-planetOrange bg-opacity-10' : ''
-        } ${clicked ? 'scale-75' : ''}`}
-        style={{
-          left: `${position.x}px`,
-          top: `${position.y}px`,
-          transform: `translate(-50%, -50%) ${linkHovered ? 'scale(1.5)' : ''} ${
-            clicked ? 'scale(0.75)' : ''
-          }`,
-        }}
-      />
-    </>
+    <div 
+      className={`cursor-dot ${hidden ? 'opacity-0' : 'opacity-100'} ${
+        clicked ? 'scale-50' : ''
+      } ${linkHovered ? 'cursor-expand' : ''}`}
+      style={{
+        left: `${position.x}px`,
+        top: `${position.y}px`,
+        transform: `translate(-50%, -50%) ${clicked ? 'scale(0.5)' : ''}`,
+      }}
+    />
   );
 };
 
