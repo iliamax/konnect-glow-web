@@ -143,6 +143,22 @@
     0% { transform: translate(200px, 150px); }
     100% { transform: translate(100px, 240px); }
   }
+  
+  @keyframes moveRight {
+    0% { left: -5px; }
+    100% { left: 100%; }
+  }
+
+  .network-packet::after {
+    content: '';
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    top: -2px;
+    animation: moveRight 2s linear infinite;
+  }
 
   @media (max-width: 768px) {
     * {
